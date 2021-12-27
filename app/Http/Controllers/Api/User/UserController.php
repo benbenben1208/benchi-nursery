@@ -87,8 +87,7 @@ class UserController extends Controller
         ]);
 
         Auth::login($user);
-
-        return $user->name;
+        return $user->createSetupIntent();
     }
     public function getAuthUser(Request $request, UserService $userService)
     {
