@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\Staff\SendOfferController;
 use App\Http\Controllers\Api\Staff\UserSearchController;
 use App\Http\Controllers\Api\User\Friku\FrikuJobsController;
 use App\Http\Controllers\Api\User\JobSearchesController;
+use App\Http\Controllers\Api\User\StripeController;
 use App\Models\FrikuJoboffer;
 
 /*
