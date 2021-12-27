@@ -1,0 +1,44 @@
+{
+    "family": "sugnee-for-command",
+    "taskRoleArn": "arn:aws:iam::455215502417:role/ECSTaskRole",
+    "executionRoleArn": "arn:aws:iam::455215502417:role/ECSTaskRole",
+    "networkMode": "awsvpc",
+    "containerDefinitions": [
+        {
+            "name": "api",
+            "image": "455215502417.dkr.ecr.ap-northeast-1.amazonaws.com/sugnee/api:latest",
+            "essential": true,
+
+            "environment": [
+                {
+                    "name": "APP_ENV",
+                    "value": "production"
+                }
+            ],
+            "secrets": [
+                {
+                    "name" : "APP_NAME",
+                    "valueFrom" : "arn:aws:ssm:ap-northeast-1:455215502417:parameter/APP_WORD"
+                }
+            ],
+            "readonlyRootFilesystem": false,
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "sugnee",
+                    "awslogs-region": "ap-northeast-1",
+                    "awslogs-datetime-format": "%Y-%m-%dT%H:%M:%S",
+                    "awslogs-stream-prefix": "api"
+                }
+            }
+
+        }
+    ],
+
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "256",
+    "memory": "512"
+
+}
