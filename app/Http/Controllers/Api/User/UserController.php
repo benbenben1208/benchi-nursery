@@ -68,6 +68,7 @@ class UserController extends Controller
     }
     public function register(Request $request, User $user)
     {
+
         $user = User::create([
             'name' => $request->lastName . ' ' . $request->firstName,
             'first_name' => $request->firstName,
@@ -85,8 +86,9 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        Mail::to($user)->queue(new UserRegistered($user));
-        return response($user, 201);
+        Auth::login($user);
+
+        return response()->noContent();
     }
     public function getAuthUser(Request $request, UserService $userService)
     {
