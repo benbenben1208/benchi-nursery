@@ -88,7 +88,7 @@ class UserController extends Controller
 
         Auth::login($user);
 
-        return response()->noContent();
+        return $user->name;
     }
     public function getAuthUser(Request $request, UserService $userService)
     {
