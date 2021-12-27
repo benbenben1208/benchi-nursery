@@ -10,13 +10,13 @@ use App\Models\CorporationJoboffer;
 use App\Models\MessageRoom;
 use App\Notifications\PasswordResetNotification;
 use Carbon\Carbon;
+use Laravel\Cashier\Billable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, Billable;
 
-    protected $connection = 'fukuriku';
-    protected $table = 'users';
+
     /**
      * The attributes that are mass assignable.
      *

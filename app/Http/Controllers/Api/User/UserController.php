@@ -66,21 +66,25 @@ class UserController extends Controller
 
         return response()->json(true);
     }
-    public function register(UserRequest $request, User $user)
+    public function register(Request $request, User $user)
     {
         $user = User::create([
             'name' => $request->lastName . ' ' . $request->firstName,
             'first_name' => $request->firstName,
             'last_name' => $request->lastName,
             'birth' => $request->birth,
+            'building' => $request->building,
             'first_name_kana' => $request->firstNameKana,
             'last_name_kana' => $request->lastNameKana,
             'gender' => $request->gender,
             'email' => $request->email,
+            'phone_number' => $request->phoneNumber,
+            'postal_code' => $request->postalCode,
+            'pref' => $request->pref,
+            'city' => $request->city,
             'password' => Hash::make($request->password),
         ]);
-        $user->favorites = ['friku' => [] ,'om' => []];
-        $user->appliedJobs = ['friku' => [] , 'om' => [] ];
+
         Mail::to($user)->queue(new UserRegistered($user));
         return response($user, 201);
     }

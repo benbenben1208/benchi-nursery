@@ -20,31 +20,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            UsersTableSeeder::class,
-            CompaniesSeeder::class,
+            // UsersTableSeeder::class,
 
-            AdminsTableSeeder::class,
-
-            JobsSeeder::class,
-            FavoritesSeeder::class,
-
-            FrikuJoboffersSeeder::class,
-
-            CompanyUsersSeeder::class,
-            CorporationApplicantsSeeder::class,
-            CorporationApplicantSchedulesSeeder::class,
-            CorporationCompanyschedulesSeeder::class,
-            MessageRoomsSeeder::class,
-            WorkTypesSeeder::class,
-            HiringSystemsSeeder::class,
-            JobTypesSeeder::class,
-            StaffsSeeder::class,
-            FrikuCompaniesSeeder::class,
-            FeaturedCompanyArticlesSeeder::class,
-            FeaturedArticleContentsSeeder::class,
-            FrikuApplicantsSeeder::class,
-            FrikuApplicantSchedulesSeeder::class,
-            FrikuFavoritesSeeder::class,
         ]);
     }
 }

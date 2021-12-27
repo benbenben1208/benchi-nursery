@@ -36,9 +36,9 @@ services:
     image: "postgres:10-alpine"
     restart: always
     environment:
-      - POSTGRES_DB=fukuriku
-      - POSTGRES_USER=fukuriku
-      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=benchi
+      - POSTGRES_USER=benchi
+      - POSTGRES_PASSWORD=benchi
     ports:
       - 5433:5432
   db2:
