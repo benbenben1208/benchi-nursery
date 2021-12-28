@@ -87,7 +87,7 @@ class UserController extends Controller
         ]);
         // Auth::guard('users')->login($user);
 
-        return $user->createSetupIntent();
+        return $user->email;
 
     }
     public function getAuthUser(Request $request, UserService $userService)
