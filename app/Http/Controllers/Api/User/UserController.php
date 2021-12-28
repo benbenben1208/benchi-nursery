@@ -85,8 +85,7 @@ class UserController extends Controller
             'city' => $request->city,
             'password' => Hash::make($request->password),
         ]);
-        Auth::guard('users')->login($user);
-
+        // Auth::guard('users')->login($user);
 
         return $user->createSetupIntent();
 

@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'fukuriku'),
+    'default' => env('DB_CONNECTION', 'benchi'),
 
     /*
     |--------------------------------------------------------------------------
