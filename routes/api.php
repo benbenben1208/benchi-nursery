@@ -33,6 +33,7 @@ use App\Models\FrikuJoboffer;
 //Note: Route::prefix('user')内のグループにはURIにuserが付きます。
 Route::prefix('user')->group(function () {
     Route::post('/register', [UserController::class, 'register']);
+    Route::get('/show/{email}', [UserController::class, 'show'])->name('user.show');
 
 
 

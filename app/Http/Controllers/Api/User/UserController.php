@@ -20,6 +20,12 @@ use App\Services\UserService;
 
 class UserController extends Controller
 {
+    public function show($email)
+    {
+
+        $user = User::where(['email' =>$email])->first();
+        return response()->json(['email' => $user->email]);
+    }
     public function login(Request $request, UserService $userService)
     {
 
@@ -87,7 +93,7 @@ class UserController extends Controller
         ]);
         // Auth::guard('users')->login($user);
 
-        return $user->email;
+        return response()->json([$user->id,$user->email]);
 
     }
     public function getAuthUser(Request $request, UserService $userService)
