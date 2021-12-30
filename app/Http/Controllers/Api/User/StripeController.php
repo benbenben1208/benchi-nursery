@@ -37,28 +37,41 @@ class StripeController extends Controller
     public function subscription(Request $request)
     {
         // $user = Auth::guard('users')->user();
-        $user = User::findOrFail(Auth::guard('users')->id());
-        return [
+        $email = User::latest()->first()->email;
+        $user = User::where('email', $email)->first();
+        return view('afterpay',  [
             'intent' => $user->createSetupIntent()
-        ];
+        ]);
+        // return [
+        //     'intent' => $user->createSetupIntent()
+        // ];
+
     }
     public function afterpay(Request $request)
     {
+         // $anchor = Carbon::parse('first day of next month');
+
+        // $request->user()->newSubscription('default', 'price_monthly')
+        //             ->anchorBillingCycleOn($anchor->startOfDay())
+        //             ->create($request->paymentMethodId);
         try {
-            $user = User::findOrFail(Auth::guard('users')->id());
+            // $user = User::findOrFail(Auth::guard('users')->id());
+            $user = User::latest()->first();
             $stripeCustomer = $user->createOrGetStripeCustomer();
             $paymentMethod = $request->stripePaymentMethod;
 
             $plan = config('services.stripe.basic_plan_id');
             $user->newSubscription('default', $plan)
                 ->create($paymentMethod);
+
             return [
                 'status' => 'success',
+                'request' => $request->all(),
             ];
         } catch (\Exception $e) {
             return [
-
                 'message' => $e->getMessage(),
+                'request' => $request
             ];
         }
     }
