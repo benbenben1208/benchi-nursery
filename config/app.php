@@ -27,6 +27,7 @@ return [
     'aws_access_bucket' => env('AWS_BUCKET', 'error'),
     'aws_default_region' => env('AWS_DEFAULT_REGION', 'error'),
 
+    'frontend_url' => env('FRONTEND_URL', 'localhost:3000'),
     /*
     |--------------------------------------------------------------------------
     | Application Environment

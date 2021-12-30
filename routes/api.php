@@ -4,11 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Admin\AdminController;
 use App\Http\Controllers\Api\Staff\StaffController;
-use App\Http\Controllers\Api\User\OwnedMaker\FavoritesController;
-use App\Http\Controllers\Api\User\Friku\FrikuFavoritesController;
 use App\Http\Controllers\Api\User\UserController;
-use App\Http\Controllers\Api\User\OwnedMaker\JobsController;
-use App\Http\Controllers\Api\User\PagesController;
+
 use App\Http\Controllers\Api\User\ForgotPasswordController;
 use App\Http\Controllers\Api\User\ResetPasswordController;
 use App\Http\Controllers\Api\Staff\SendOfferController;
@@ -16,7 +13,7 @@ use App\Http\Controllers\Api\Staff\UserSearchController;
 use App\Http\Controllers\Api\User\Friku\FrikuJobsController;
 use App\Http\Controllers\Api\User\JobSearchesController;
 use App\Http\Controllers\Api\User\StripeController;
-use App\Models\FrikuJoboffer;
+use App\Http\Controllers\Api\User\VerifyEmailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,3 +46,26 @@ Route::prefix('user')->name('stripe.')->group(function () {
     Route::get('/subscription', [StripeController::class, 'subscription'])->name('subscription');
     Route::post('/subscription/afterpay', [StripeController::class, 'afterpay'])->name('afterpay');
 });
+
+
+
+
+
+
+
+
+
+
+// Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+//     $request->fulfill();
+
+//     return redirect('localhost:3000');
+// })->middleware(['auth', 'signed'])->name('verification.verify');
+Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
+    ->middleware(['signed',  'throttle:6,1'])
+    ->name('verification.verify');
+
+Route::post('/email/verify/resend', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth:api', 'throttle:6,1'])->name('verification.send');

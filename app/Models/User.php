@@ -12,7 +12,7 @@ use App\Notifications\PasswordResetNotification;
 use Carbon\Carbon;
 use Laravel\Cashier\Billable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable, Billable;
 

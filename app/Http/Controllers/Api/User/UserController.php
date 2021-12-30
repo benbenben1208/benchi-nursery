@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Services\ImageService;
 use App\Services\UserService;
-
+use Illuminate\Auth\Events\Registered;
 class UserController extends Controller
 {
     public function show(User $user)
@@ -90,7 +90,7 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
         ]);
         // Auth::guard('users')->login($user);
-
+        event(new Registered($user));
         return response()->json([$user->id,$user->email]);
 
     }
