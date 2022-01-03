@@ -46,16 +46,6 @@ Route::prefix('user')->name('stripe.')->group(function () {
     Route::get('/subscription', [StripeController::class, 'subscription'])->name('subscription');
     Route::post('/subscription/afterpay', [StripeController::class, 'afterpay'])->name('afterpay');
 });
-
-
-
-
-
-
-
-
-
-
 // Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
 //     $request->fulfill();
 
@@ -69,3 +59,4 @@ Route::post('/email/verify/resend', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth:api', 'throttle:6,1'])->name('verification.send');
+
