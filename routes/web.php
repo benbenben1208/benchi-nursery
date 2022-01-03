@@ -4,6 +4,8 @@ use App\Http\Controllers\Api\Staff\StaffController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\User\UserController;
 use App\Http\Controllers\Api\Admin\AdminController;
+use App\Http\Controllers\Api\User\StripeController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,3 +31,7 @@ Route::post('api/admin/logout', [AdminController::class, 'logout'])->middleware(
 //企業担当者ログイン、ログアウト
 Route::post('api/staff/login', [StaffController::class, 'login']);
 Route::post('api/staff/logout', [StaffController::class, 'logout'])->middleware('auth:staffs');
+
+
+Route::post('afterpay/test', [StripeController::class, 'afterpay'])->name('afterpay.test');
+

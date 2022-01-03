@@ -49,3 +49,5 @@ Route::prefix('user')->name('stripe.')->group(function () {
     Route::get('/subscription', [StripeController::class, 'subscription'])->name('subscription');
     Route::post('/subscription/afterpay', [StripeController::class, 'afterpay'])->name('afterpay');
 });
+
+
