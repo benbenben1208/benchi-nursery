@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Admin\AdminController;
+use App\Http\Controllers\Api\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Api\Staff\StaffController;
 use App\Http\Controllers\Api\User\OwnedMaker\FavoritesController;
 use App\Http\Controllers\Api\User\Friku\FrikuFavoritesController;
@@ -50,4 +51,10 @@ Route::prefix('user')->name('stripe.')->group(function () {
     Route::post('/subscription/afterpay', [StripeController::class, 'afterpay'])->name('afterpay');
 });
 
+Route::prefix('admins')->group(function () {
+    Route::post('/user/export', [AdminUserController::class, 'csvExport'])->name('user.export');
+    Route::middleware(['auth:admins'])->group(function(){
+        // Route::get('/user/export', [AdminUserController::class, 'csvExport'])->name('user.export');
+    });
+});
 
