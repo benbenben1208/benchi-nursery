@@ -84,9 +84,9 @@ class UserController extends Controller
     }
     public function getAuthUser(Request $request, UserService $userService)
     {
+        $user = User::findOrFail(Auth::guard('users')->id());
 
-
-        return ;
+        return $user;
     }
     public function update(UserUpdateRequest $request, User $user, ImageService $imageService)
     {

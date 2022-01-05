@@ -59,6 +59,11 @@ class StripeController extends Controller
         // $request->user()->newSubscription('default', 'price_monthly')
         //             ->anchorBillingCycleOn($anchor->startOfDay())
         //             ->create($request->paymentMethodId);
+        if(Carbon::now() < $preRelease) {
+
+
+
+
         try {
             // $user = User::findOrFail(Auth::guard('users')->id());
             $user = User::latest()->first();
@@ -93,5 +98,6 @@ class StripeController extends Controller
                 'request' => $request
             ];
         }
+    }
     }
 }
