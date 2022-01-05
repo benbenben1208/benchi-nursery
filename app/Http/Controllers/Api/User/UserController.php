@@ -38,20 +38,8 @@ class UserController extends Controller
             $user = User::findOrFail(Auth::guard('users')->id());
             // $withUser = $user->with('frikuApplicant.frikuApplicantSchedules')->first();
 
-            $favoritesJobs = $userService->getOmFavorited($user);
-            $favoritesJobs += $userService->getFrikuFavorited($user);
-            $applied = [];
-            $applied = $userService->getOmApplied($user);
-            $applied += $userService->getFrikuApplied($user);
-
-            // $user->favorites = $favoritesJobs;
-            // $user->appliedJobs = $applied;
-            $editedUser = User::findOrFail(Auth::guard('users')->id());
-            $editedUser->favorites = $favoritesJobs;
-            $editedUser->appliedJobs = $applied;
-
             return response()->json([
-                'user' =>  $editedUser,
+                'user' =>  $user,
                 'message' => "ログインに成功しました"
             ]);
         }

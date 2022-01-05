@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class StripeController extends Controller
 {
@@ -49,7 +50,11 @@ class StripeController extends Controller
     }
     public function afterpay(Request $request)
     {
-         // $anchor = Carbon::parse('first day of next month');
+        $preRelease = Carbon::parse('2022-02-01');
+
+        // $scheduling_subscription = $preRelease->addDays(30);
+
+        // $anchor = Carbon::parse('first day of next month');
 
         // $request->user()->newSubscription('default', 'price_monthly')
         //             ->anchorBillingCycleOn($anchor->startOfDay())
@@ -57,13 +62,27 @@ class StripeController extends Controller
         try {
             // $user = User::findOrFail(Auth::guard('users')->id());
             $user = User::latest()->first();
+            // if(Carbon::now() <  $preRelease){
+            //     $user->trial_ends_at = $preRelease->addDays(30);
+            // }
             $stripeCustomer = $user->createOrGetStripeCustomer();
             $paymentMethod = $request->stripePaymentMethod;
 
             $plan = config('services.stripe.basic_plan_id');
+            $secondPlan = config('services.stripe.second_id');
             $user->newSubscription('default', $plan)
+                // ->anchorBillingCycleOn($preRelease->startOfDay())
+                ->trialUntil($preRelease->addDays(30))
+                ->create($paymentMethod);
+            $user->newSubscription('second', $secondPlan)
+                // ->anchorBillingCycleOn($preRelease->startOfDay())
+                ->trialUntil($preRelease->addDays(30))
                 ->create($paymentMethod);
 
+            $user->charge(10000, $request->stripePaymentMethod,[
+                'currency' => 'jpy',
+                'description' => '登録時即時決済テスト説明'
+            ]);
             return [
                 'status' => 'success',
                 'request' => $request->all(),

@@ -62,43 +62,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $this->notify(new PasswordResetNotification($token));
     }
-    //複数DBの使用をまたぐと、BelongsToManyが使えないので, HasManyに変更。
-    public function favorites()
-    {
-        return $this->hasMany(Favorite::class, 'user_id');
-    }
-    //もし、いずれ複数DBでもbelongsToManyが使える方法がわかれば戻す。
-    // public function favoriteJobs()
-    // {
-    //     return $this->belongsToMany(CorporationJoboffer::class , 'favorites', 'user_id','corporation_joboffer_id')->withTimestamps();
-    // }
-    public function offeredByJobs()
-    {
-        return $this->belongsToMany(CorporationJoboffer::class , 'offers')->withTimestamps()->withPivot('status', 'type');
-    }
-    public function applieJobs()
-    {
-        return $this->belongsToMany(CorporationJoboffer::class , 'applies')->withTimestamps()->withPivot('is_offer');
-    }
-    public function rooms()
-    {
-        return $this->hasMany(MessageRoom::class);
-    }
-    public function frikuFavorites()
-    {
-        return $this
-            ->belongsToMany(FrikuJoboffer::class, 'friku_favorites')
-            ->withPivot(['created_at', 'updated_at', 'id']);
-    }
-    public function corporationApplicant()
-    {
-        return $this->hasOne(CorporationApplicant::class, 'user_id');
-    }
-    public function frikuApplicant()
-    {
-        return $this->hasOne(FrikuApplicant::class, 'user_id');
 
-    }
 
 
 

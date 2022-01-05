@@ -16,13 +16,13 @@ class VerifyEmailController extends Controller
 
         if ($user->hasVerifiedEmail()) {
 
-            return redirect(config('app.frontend_url'));
+            return redirect(config('app.frontend_url') . '/mailConfirmation');
         }
 
         if ($user->markEmailAsVerified()) {
             event(new Verified($user));
         }
 
-        return  redirect(config('app.frontend_url'));
+        return redirect(config('app.frontend_url') . '/mailConfirmation');
     }
 }
