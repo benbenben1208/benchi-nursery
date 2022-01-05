@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Admin\AdminController;
+use App\Http\Controllers\Api\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Api\Staff\StaffController;
 use App\Http\Controllers\Api\User\UserController;
 
@@ -60,3 +61,10 @@ Route::post('/email/verify/resend', function (Request $request) {
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth:api', 'throttle:6,1'])->name('verification.send');
 
+
+Route::prefix('admins')->group(function () {
+    Route::post('/user/export', [AdminUserController::class, 'csvExport'])->name('user.export');
+    Route::middleware(['auth:admins'])->group(function(){
+
+    });
+});

@@ -37,11 +37,11 @@ class UserController extends Controller
             $request->session()->regenerate();
             $user = User::findOrFail(Auth::guard('users')->id());
             // $withUser = $user->with('frikuApplicant.frikuApplicantSchedules')->first();
-
             return response()->json([
                 'user' =>  $user,
                 'message' => "ログインに成功しました"
             ]);
+
         }
 
         return response()->json([
@@ -58,7 +58,7 @@ class UserController extends Controller
 
         return response()->json(true);
     }
-    public function register(Request $request, User $user)
+    public function register(UserRequest $request, User $user)
     {
 
         $user = User::create([
@@ -84,17 +84,9 @@ class UserController extends Controller
     }
     public function getAuthUser(Request $request, UserService $userService)
     {
-        $user = User::with('frikuApplicant.frikuApplicantSchedules')->findOrFail(Auth::guard('users')->id());
-        $favoritesJobs = $userService->getOmFavorited($user);
-        $favoritesJobs += $userService->getFrikuFavorited($user);
-        $applied = [];
-        $applied = $userService->getOmApplied($user);
-        $applied += $userService->getFrikuApplied($user);
-        $editedUser = User::findOrFail(Auth::guard('users')->id());
-        $editedUser->favorites = $favoritesJobs;
-        $editedUser->appliedJobs = $applied;
 
-        return $editedUser->toJson(JSON_UNESCAPED_UNICODE);
+
+        return ;
     }
     public function update(UserUpdateRequest $request, User $user, ImageService $imageService)
     {
