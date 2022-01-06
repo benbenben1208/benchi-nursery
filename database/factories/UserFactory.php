@@ -32,10 +32,16 @@ class UserFactory extends Factory
             'last_name' => $this->faker->lastName,
             'first_name_kana' => $this->faker->firstKanaName,
             'last_name_kana' => $this->faker->lastKanaName,
+            'building' => $this->faker->buildingNumber,
+            'phone_number' => $this->faker->phoneNumber,
+            'postal_code' => $this->faker->postcode,
+            'pref' => $this->faker->prefecture,
+            'city' => $this->faker->city,
+
             // 'first_name_kana' => $this->faker->firstKanaName,
             // 'last_name_kana' => $this->faker->lastKanaName,
             'birth' => $this->faker->dateTimeBetween('-60 years', '-18 years'),
-            'phone' => $this->faker->phoneNumber,
+
             'gender' => $this->faker->numberBetween(1,2),
             'created_at' => now(),
             'updated_at' => now()
